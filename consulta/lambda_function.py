@@ -80,7 +80,7 @@ def lambda_handler(event, context):
     #! Prueba, borrar después
     return {
         'statusCode' : 200,
-        'body': json.dumps(str(event))
+        'body': json.dumps(str(event) + "-----" + str(context))
     }
 
     try:
