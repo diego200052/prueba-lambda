@@ -8,4 +8,4 @@ Resources:
         Name: "mylambda"
         Alias: "staging"
         CurrentVersion: "1"
-        TargetVersion: "1"
+        TargetVersion: "2"
