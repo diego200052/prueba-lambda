@@ -1,6 +1,6 @@
 version: 0.0
 Resources:
-  - myLambdaFunction:
+  - mylambda:
     Type: AWS::Lambda::Function
     Properties:
       Name: "mylambda" #Lambda function name
