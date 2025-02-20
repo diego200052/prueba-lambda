@@ -6,7 +6,8 @@ phases:
   build:
     commands:
       - echo "Comprimiendo funciones para la lambda de consulta..."
-      - zip -r function.zip consulta/* -x "consulta/"
+      - cd consulta
+      - zip -r function.zip *
   post_build:
     commands:
       - echo "Actualizando función lambda..."
