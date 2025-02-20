@@ -56,14 +56,7 @@ class OrquestadorLambda:
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body):
-        # Busca la función dado el path y el método
-        for funcion in self.funciones:
-            if funcion.path == path and funcion.http_method == http_method:
-                # Ejecuta la función
-                #return funcion.ejecutar(self._convertir_body_a_dict(http_method, body))
-                return {}
-
-        raise Exception('El path de la función no existe.')
+        return {}
 
 
 def json_response(httpStatusCode : int = 500, body : dict = {}):
