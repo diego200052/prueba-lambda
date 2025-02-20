@@ -6,6 +6,6 @@ Resources:
       Type: AWS::Lambda::Function
       Properties:
         Name: "mylambda"
-        Alias: "staging"
-        CurrentVersion: "1"
-        TargetVersion: "2"
+        Alias: "live"
+        CurrentVersion: "$LATEST"
+        TargetVersion: "$LATEST"
