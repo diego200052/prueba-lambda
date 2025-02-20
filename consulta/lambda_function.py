@@ -5,7 +5,7 @@ from vehiculos import obtener_vehiculos
 # Aquí se deben agregar las funciones deseadas como una tripleta.
 # (Función, Path, Método HTTP)
 FUNCIONES = [
-    (obtener_vehiculos, '/vehiculos/obtener_vehiculos', 'GET')
+    (obtener_vehiculos, '/vehiculos/obtener-vehiculos', 'GET')
 ]
 
 class Funcion:
@@ -61,7 +61,7 @@ class OrquestadorLambda:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
                 return funcion.ejecutar(self._convertir_body_a_dict(body))
-        return {'holaaaaa'}
+        return {'path':path, 'http_method':http_method}
 
         raise Exception('El path de la función no existe.')
 
@@ -115,5 +115,5 @@ def lambda_handler(event, context):
     #return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
     return {
         'statusCode' : 200,
-        'body': str(path) + " --9- " + str(http_method) + " --- " + str(body) + str(resultado)
+        'body': str(path) + " --10- " + str(http_method) + " --- " + str(body) + str(resultado)
     }
