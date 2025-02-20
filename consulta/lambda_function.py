@@ -96,17 +96,18 @@ def lambda_handler(event, context):
     except:
         body = {}
 
-    return {
-        'statusCode' : 200,
-        'body': str(path) + " --2- " + str(http_method) + " --- " + str(body)
-    }
-
     if str(path) != '' and str(http_method) != '':
         try:
             # Ejecutamos la función deseada
             #resultado = orquestador_lambda.ejecutar_funcion(path, http_method, body)
-            return json_response(httpStatusCode=200, body={'OK'})
+            #return json_response(httpStatusCode=200, body={'OK'})
+            pass
         except Exception as e:
-            return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
+            pass
+            #return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
     # path == ''
-    return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
+    #return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
+    return {
+        'statusCode' : 200,
+        'body': str(path) + " --3- " + str(http_method) + " --- " + str(body)
+    }
