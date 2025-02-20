@@ -106,13 +106,13 @@ def lambda_handler(event, context):
         body = {}
 
     if str(path) != '' and str(http_method) != '':
-        try:
+        #try:
             # Ejecutamos la función deseada
-            resultado = orquestador_lambda.ejecutar_funcion(path, http_method, body)
-            return json_response(httpStatusCode=200, body=resultado)
-        except Exception as e:
-            resultado = "excepcion"
-            return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
+            #resultado = orquestador_lambda.ejecutar_funcion(path, http_method, body)
+            #return json_response(httpStatusCode=200, body=resultado)
+        #except Exception as e:
+            #resultado = "excepcion"
+        return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}.).'})
     # path == ''
     return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
     # return {
