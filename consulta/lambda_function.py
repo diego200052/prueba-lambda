@@ -96,12 +96,12 @@ def lambda_handler(event, context):
                 'result': resultado
             }
         except Exception as e:
-            return json.dumps({
+            return {
                 'statusCode': 500,
                 'result': {'error':f'Error {str(event)} ( path: {str(path)}. args: {str(args)}. {e} ).'}
-            })
+            }
     # path == ''
-    return json.dumps({
+    return {
         'statusCode': 500,
         'result': {'error':f'Path de la función vacío: ({path}) {str(event)}'}
-    })
+    }
