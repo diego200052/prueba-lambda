@@ -5,8 +5,8 @@ phases:
       - echo "Installing dependencies"
   build:
     commands:
-      - echo "Comprimiendo funciones de consulta..."
-      - zip -r function.zip consulta/*
+      - echo "Comprimiendo funciones para la lambda de consulta..."
+      - zip -r function.zip consulta/* -x "consulta/"
   post_build:
     commands:
       - echo "Actualizando función lambda..."
