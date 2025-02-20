@@ -65,14 +65,14 @@ class OrquestadorLambda:
         raise Exception('El path de la función no existe.')
 
 
-def json_response(isBase64Encoded : bool = False, httpStatusCode : int = 500, body : dict):
+def json_response(httpStatusCode : int = 500, body : dict):
     return {
-    "isBase64Encoded": isBase64Encoded,
-    "statusCode": httpStatusCode,
-    # "headers": { "headerName": "headerValue", ... },
-    # "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
-    "body": body
-}
+        # "isBase64Encoded": isBase64Encoded,
+        "statusCode": httpStatusCode,
+        # "headers": { "headerName": "headerValue", ... },
+        # "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
+        "body": body
+    }
 
 def lambda_handler(event, context):
     """
