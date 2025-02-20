@@ -79,8 +79,8 @@ def lambda_handler(event, context):
     # }
     try:
         path = event['path']
-    except:
-        path = ''
+    except Exception as e:
+        path = e
     try:
         args = event['args']
     except:
@@ -93,7 +93,7 @@ def lambda_handler(event, context):
         except:
             return {
                 'statusCode': 200,
-                'body': json.dumps({'error':f'Error al ejecutar la función o no existe. ( {str(path)} con args: {str(args)}).'})
+                'body': json.dumps({'error':f'Error al ejecutar la función o no existe. ( path: {str(path)}. args: {str(args)}).'})
             }
     return {
         'statusCode': 200,
