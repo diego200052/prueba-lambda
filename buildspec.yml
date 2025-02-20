@@ -5,11 +5,11 @@ phases:
       - echo "Installing dependencies"
   build:
     commands:
-      - echo "Zipping the Lambda function and AppSpec file"
-      - zip -r function.zip lambda_function.py
+      - echo "Comprimiendo funciones de consulta..."
+      - zip -r function.zip consulta/*
   post_build:
     commands:
-      - echo "Updating lambda function..."
+      - echo "Actualizando función lambda..."
       - aws lambda update-function-code --function-name mylambda --zip-file fileb://function.zip --publish
       - echo "DONE!!"
 
