@@ -111,7 +111,7 @@ def lambda_handler(event, context):
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, body)
-            return return json_response(httpStatusCode=200, body=resultado)
+            return json_response(httpStatusCode=200, body=resultado)
         except Exception as e:
             return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
     # path == ''
