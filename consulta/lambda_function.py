@@ -1,4 +1,4 @@
-# import json
+import json
 import urllib.parse
 from vehiculos import obtener_vehiculos
 
@@ -74,7 +74,7 @@ def json_response(httpStatusCode : int = 500, body : dict = {}):
         "statusCode": httpStatusCode,
         # "headers": { "headerName": "headerValue", ... },
         # "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
-        "body": body
+        "body": json.loads(json.dumps(body, default=str))
     }
 
 def lambda_handler(event, context):
@@ -109,7 +109,7 @@ def lambda_handler(event, context):
         #try:
             # Ejecutamos la función deseada
             #resultado = orquestador_lambda.ejecutar_funcion(path, http_method, body)
-        return json_response(httpStatusCode=200, body='OK')
+        return json_response(httpStatusCode=200, body={'OK'})
         #except Exception as e:
         #    resultado = "excepcion"
             #return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
