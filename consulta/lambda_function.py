@@ -74,7 +74,7 @@ def json_response(httpStatusCode : int = 500, body : dict = {}):
         "statusCode": httpStatusCode,
         # "headers": { "headerName": "headerValue", ... },
         # "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
-        "body": json.loads(json.dumps(body, default=str))
+        "body": json.dumps(body, default=str)
     }
 
 def lambda_handler(event, context):
