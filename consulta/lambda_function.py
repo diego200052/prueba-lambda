@@ -61,7 +61,7 @@ class OrquestadorLambda:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
                 return funcion.ejecutar(self._convertir_body_a_dict(body))
-        return {'path':path, 'http_method':http_method}
+        return {path}
 
         raise Exception('El path de la función no existe.')
 
