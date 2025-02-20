@@ -35,7 +35,7 @@ class OrquestadorLambda:
                                 tupla_funcion[2])
 
     def agregar_funcion(func, path : str, httpMethod: str = 'GET'):
-        if (_verificar_path(path, httpMethod)):
+        if (self._verificar_path(path, httpMethod)):
             self.funciones.append(Funcion(func, path, httpMethod))
         else:
             raise Exception(f'Hay una función con un path y método repetidos: ({path} {httpMethod})')
