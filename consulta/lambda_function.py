@@ -65,6 +65,15 @@ class OrquestadorLambda:
         raise Exception('El path de la función no existe.')
 
 
+def json_response(isBase64Encoded : bool = False, httpStatusCode : int = 500, body : dict):
+    return {
+    "isBase64Encoded": isBase64Encoded,
+    "statusCode": httpStatusCode,
+    # "headers": { "headerName": "headerValue", ... },
+    # "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
+    "body": body
+}
+
 def lambda_handler(event, context):
     """
     Punto de llamada de las lambda.
@@ -74,10 +83,7 @@ def lambda_handler(event, context):
     try:
         orquestador_lambda = OrquestadorLambda()
     except Exception as e:
-        return {
-            'statusCode' : 500,
-            'result': {'error':f'Error al inicializar el orquestador lambda: {e}'}
-        }
+        return json_response(httpStatusCode=500, body={'error':f'Error al inicializar el orquestador lambda: {e}'})
 
     # #! Prueba, borrar después
     # return {
@@ -96,26 +102,17 @@ def lambda_handler(event, context):
     except:
         body = {}
 
-    return {
-        'statusCode' : 200,
-        'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
-    }
+    # return {
+    #     'statusCode' : 200,
+    #     'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
+    # }
 
-    if path != '' and http_method != '':
+    if str(path) != '' and str(http_method) != '':
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, body)
-            return {
-                'statusCode': 200,
-                'result': resultado
-            }
+            return return json_response(httpStatusCode=200, body=resultado)
         except Exception as e:
-            return {
-                'statusCode': 500,
-                'result': {'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'}
-            }
+            return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
     # path == ''
-    return {
-        'statusCode': 500,
-        'result': {'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'}
-    }
+    return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
