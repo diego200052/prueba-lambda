@@ -76,17 +76,26 @@ def lambda_handler(event, context):
     #     'statusCode' : 200,
     #     'body': json.dumps(str(event) + "-----" + str(context))
     # }
-
     try:
-        # Ejecutamos la función deseada
-        resultado = orquestador_lambda.ejecutar_funcion(event['path'], event['args'])
+        path = event['path']
     except:
-        return {
-            'statusCode': 200,
-            'body': json.dumps({'error':f'Error al ejecutar la función. ( {str(event['path'])} con args: {str(event['args'])}).'})
-        }
+        path = ''
+    try:
+        args = event['args']
+    except:
+        args = {}
 
+
+    if path != '':
+        try:
+            # Ejecutamos la función deseada
+            resultado = orquestador_lambda.ejecutar_funcion(path, args)
+        except:
+            return {
+                'statusCode': 200,
+                'body': json.dumps({'error':f'Error al ejecutar la función. ( {str(path)} con args: {str(args)}).'})
+            }
     return {
         'statusCode': 200,
-        'body': json.dumps(resultado)
+        'body': json.dumps({'error':f'Path inválido: {e}'})
     }
