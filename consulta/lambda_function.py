@@ -1,5 +1,5 @@
 import json
-import urllib.parse
+# import urllib.parse
 from vehiculos import obtener_vehiculos
 
 # Aquí se deben agregar las funciones deseadas como una tripleta.
@@ -51,8 +51,8 @@ class OrquestadorLambda:
         return True
 
     def _convertir_body_a_dict(self, http_method, body):
-        if http_method == 'GET':
-            return urllib.parse.parse_qs(query_string)
+        # if http_method == 'GET':
+        #     return urllib.parse.parse_qs(query_string)
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body):
