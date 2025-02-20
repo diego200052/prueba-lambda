@@ -10,7 +10,7 @@ phases:
   post_build:
     commands:
       - echo "Updating lambda function..."
-      - aws lambda update-function-code --function-name mylambda --zip-file fileb://function.zip --publish true
+      - aws lambda update-function-code --function-name mylambda --zip-file fileb://function.zip --publish
       - echo "DONE!!"
 
 artifacts:
