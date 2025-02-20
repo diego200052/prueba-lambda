@@ -66,10 +66,10 @@ def lambda_handler(event, context):
     # Inicializa
     try:
         orquestador_lambda = OrquestadorLambda()
-    except:
+    except Exception as e:
         return {
             'statusCode' : 500,
-            'body': json.dumps({'error':'Error al inicializar el orquestador lambda.'})
+            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda. {e}'})
         }
 
     # Obtenemos el cuerpo de la petición
