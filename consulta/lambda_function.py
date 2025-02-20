@@ -79,11 +79,11 @@ def lambda_handler(event, context):
             'result': {'error':f'Error al inicializar el orquestador lambda: {e}'}
         }
 
-    #! Prueba, borrar después
-    return {
-        'statusCode' : 200,
-        'body': str(event)# + "-----" + str(context)
-    }
+    # #! Prueba, borrar después
+    # return {
+    #     'statusCode' : 200,
+    #     'body': str(event)# + "-----" + str(context)
+    # }
 
     try:
         path = event['path']
@@ -95,6 +95,11 @@ def lambda_handler(event, context):
         body = event['body']
     except:
         body = {}
+
+    return {
+        'statusCode' : 200,
+        'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
+    }
 
     if path != '' and http_method != '':
         try:
