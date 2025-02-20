@@ -86,7 +86,7 @@ def lambda_handler(event, context):
     except:
         args = {}
 
-    if path != '':
+    if path == '':
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, args)
