@@ -55,7 +55,7 @@ class OrquestadorLambda:
                 # Ejecuta la función
                 return funcion.ejecutar(args)
 
-        raise
+        raise Exception('El path de la función no existe.')
 
 
 def lambda_handler(event, context):
@@ -90,10 +90,10 @@ def lambda_handler(event, context):
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, args)
-        except:
+        except Exception as e:
             return {
                 'statusCode': 200,
-                'body': json.dumps({'error':f'Error al ejecutar la función o no existe. ( path: {str(path)}. args: {str(args)}).'})
+                'body': json.dumps({'error':f'Error ( path: {str(path)}. args: {str(args)}. {e}).'})
             }
     # path == ''
     return {
