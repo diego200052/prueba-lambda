@@ -60,8 +60,7 @@ class OrquestadorLambda:
         for funcion in self.funciones:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
-                #return funcion.ejecutar(self._convertir_body_a_dict(body))
-                pass
+                return funcion.ejecutar(self._convertir_body_a_dict(body))
         return {}
 
         #raise Exception('El path de la función no existe.')
@@ -117,5 +116,5 @@ def lambda_handler(event, context):
     #return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
     return {
         'statusCode' : 200,
-        'body': str(path) + " --5- " + str(http_method) + " --- " + str(body) + str(resultado)
+        'body': str(path) + " --6- " + str(http_method) + " --- " + str(body) + str(resultado)
     }
