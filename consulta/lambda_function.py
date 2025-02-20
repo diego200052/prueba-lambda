@@ -30,8 +30,7 @@ class OrquestadorLambda:
         for tupla_funcion in FUNCIONES:
             # Agregamos todas las funciones que gestionará la lambda
             self.agregar_funcion(tupla_funcion[0],
-                                tupla_funcion[1],
-                                tupla_funcion[2])
+                                tupla_funcion[1])
 
     def agregar_funcion(self, func, path : str):
         if (self._verificar_path(path)):
