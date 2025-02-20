@@ -97,5 +97,5 @@ def lambda_handler(event, context):
             }
     return {
         'statusCode': 200,
-        'body': json.dumps({'error':f'Path inválido: {e}'})
+        'body': json.dumps({'error':f'Path de la función inválido o vacío: {path}'})
     }
