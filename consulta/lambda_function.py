@@ -102,10 +102,10 @@ def lambda_handler(event, context):
     except:
         body = {}
 
-    # return {
-    #     'statusCode' : 200,
-    #     'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
-    # }
+    return {
+        'statusCode' : 200,
+        'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
+    }
 
     if str(path) != '' and str(http_method) != '':
         try:
