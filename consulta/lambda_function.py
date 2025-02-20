@@ -86,7 +86,7 @@ def lambda_handler(event, context):
     except:
         args = {}
 
-    if path == '':
+    if path != '':
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, args)
@@ -95,6 +95,7 @@ def lambda_handler(event, context):
                 'statusCode': 200,
                 'body': json.dumps({'error':f'Error al ejecutar la función o no existe. ( path: {str(path)}. args: {str(args)}).'})
             }
+    # path == ''
     return {
         'statusCode': 200,
         'body': json.dumps({'error':f'Path de la función vacío: {str(event)}'})
