@@ -53,7 +53,9 @@ class OrquestadorLambda:
         for funcion in self.funciones:
             if funcion.path == path:
                 # Ejecuta la función
-                funcion.ejecutar(args)
+                return funcion.ejecutar(args)
+
+        raise
 
 
 def lambda_handler(event, context):
@@ -84,7 +86,6 @@ def lambda_handler(event, context):
     except:
         args = {}
 
-
     if path != '':
         try:
             # Ejecutamos la función deseada
@@ -92,7 +93,7 @@ def lambda_handler(event, context):
         except:
             return {
                 'statusCode': 200,
-                'body': json.dumps({'error':f'Error al ejecutar la función. ( {str(path)} con args: {str(args)}).'})
+                'body': json.dumps({'error':f'Error al ejecutar la función o no existe. ( {str(path)} con args: {str(args)}).'})
             }
     return {
         'statusCode': 200,
