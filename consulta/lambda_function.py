@@ -93,7 +93,7 @@ def lambda_handler(event, context):
         except Exception as e:
             return {
                 'statusCode': 200,
-                'body': json.dumps({'error':f'Error ( path: {str(path)}. args: {str(args)}. {e}).'})
+                'body': json.dumps({'error':f'Error {str(event)} ( path: {str(path)}. args: {str(args)}. {e} ).'})
             }
     # path == ''
     return {
