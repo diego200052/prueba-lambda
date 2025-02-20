@@ -1,4 +1,4 @@
-import json
+# import json
 # import urllib.parse
 from vehiculos import obtener_vehiculos
 
@@ -28,7 +28,7 @@ class OrquestadorLambda:
     """
 
     def __init__(self):
-        self.funciones : lst[Funcion] = []
+        self.funciones : list[Funcion] = []
         for tupla_funcion in FUNCIONES:
             # Agregamos todas las funciones que gestionará la lambda
             self.agregar_funcion(tupla_funcion[0],
