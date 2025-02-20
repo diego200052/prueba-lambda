@@ -1,9 +1,11 @@
+# https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file.html#appspec-reference-lambda
 version: 0.0
+# https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-resources.html#reference-appspec-file-structure-resources-lambda
 Resources:
-  - mylambda:
-    Type: AWS::Lambda::Function
-    Properties:
-      Name: "mylambda" #Lambda function name
-      Alias: "staging" #Alias pointing to a published version of the Lambda function
-      CurrentVersion: "1"
-      TargetVersion: "1"
+  - myLambdaFunction:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: "mylambda"
+        Alias: "staging"
+        CurrentVersion: "1"
+        TargetVersion: "1"
