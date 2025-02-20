@@ -1,18 +1,20 @@
 import json
+import urllib.parse
 from vehiculos import obtener_vehiculos
 
 # Aquí se deben agregar las funciones deseadas como una tripleta.
-# (Función, Path)
+# (Función, Path, Método HTTP)
 FUNCIONES = [
-    (obtener_vehiculos, 'vehiculos/obtener_vehiculos')
+    (obtener_vehiculos, '/vehiculos/obtener_vehiculos', 'GET')
 ]
 
 class Funcion:
     """
         Función a ejecutar en determinada path y con determinado método
     """
-    def __init__(self, func, path: str):
+    def __init__(self, func, path: str, http_method: str):
         self.path = path
+        self.http_method = http_method
         self.func = func
 
     def ejecutar(self, args : dict):
@@ -30,30 +32,35 @@ class OrquestadorLambda:
         for tupla_funcion in FUNCIONES:
             # Agregamos todas las funciones que gestionará la lambda
             self.agregar_funcion(tupla_funcion[0],
-                                tupla_funcion[1])
+                                tupla_funcion[1],
+                                tupla_funcion[2])
 
-    def agregar_funcion(self, func, path : str):
-        if (self._verificar_path(path)):
-            self.funciones.append(Funcion(func, path))
+    def agregar_funcion(self, func, path : str, http_method : str):
+        if (self._verificar_path_method(path, http_method)):
+            self.funciones.append(Funcion(func, path, http_method))
         else:
-            raise Exception(f'Hay una función con un path y método repetidos: ({path})')
+            raise Exception(f'Hay una función con un path y método repetidos: ({path} {http_method})')
 
-    def _verificar_path(self, path):
+    def _verificar_path_method(self, path, http_method):
         """
         Verifica si el path y el método ya se habían usado
         """
         for funcion in self.funciones:
-            if funcion.path == path:
+            if funcion.path == path and funcion.http_method == http_method:
                 return False
         return True
 
+    def _convertir_body_a_dict(self, http_method, body):
+        if http_method == 'GET':
+            return urllib.parse.parse_qs(query_string)
+        return {}
     
-    def ejecutar_funcion(self, path : str, args : dict):
+    def ejecutar_funcion(self, path : str, http_method : str, body):
         # Busca la función dado el path y el método
         for funcion in self.funciones:
-            if funcion.path == path:
+            if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
-                return funcion.ejecutar(args)
+                return funcion.ejecutar(self._convertir_body_a_dict(body))
 
         raise Exception('El path de la función no existe.')
 
@@ -75,22 +82,24 @@ def lambda_handler(event, context):
     #! Prueba, borrar después
     return {
         'statusCode' : 200,
-        'body': json.dumps(str(event) + "-----" + str(context))
+        'body': str(event) + "-----" + str(context)
     }
 
     try:
         path = event['path']
+        http_method = event['httpMethod']
     except Exception as e:
         path = ''
+        http_method = ''
     try:
-        args = event['args']
+        body = event['body']
     except:
-        args = {}
+        body = {}
 
-    if path != '':
+    if path != '' and http_method != '':
         try:
             # Ejecutamos la función deseada
-            resultado = orquestador_lambda.ejecutar_funcion(path, args)
+            resultado = orquestador_lambda.ejecutar_funcion(path, body)
             return {
                 'statusCode': 200,
                 'result': resultado
@@ -98,10 +107,10 @@ def lambda_handler(event, context):
         except Exception as e:
             return {
                 'statusCode': 500,
-                'result': {'error':f'Error {str(event)} ( path: {str(path)}. args: {str(args)}. {e} ).'}
+                'result': {'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'}
             }
     # path == ''
     return {
         'statusCode': 500,
-        'result': {'error':f'Path de la función vacío: ({path}) {str(event)}'}
+        'result': {'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'}
     }
