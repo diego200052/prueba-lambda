@@ -63,7 +63,7 @@ class OrquestadorLambda:
                 return funcion.ejecutar(self._convertir_body_a_dict(body))
         return {}
 
-        #raise Exception('El path de la función no existe.')
+        raise Exception('El path de la función no existe.')
 
 
 def json_response(httpStatusCode : int = 500, body : dict = {}):
