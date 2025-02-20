@@ -6,9 +6,13 @@ phases:
   build:
     commands:
       - echo "Zipping the Lambda function and AppSpec file"
-      - zip -r function.zip lambda_function.py appspec.yml
+      - zip -r function.zip lambda_function.py
+  post_build:
+    commands:
+      - echo "Updating lambda function..."
+      - aws lambda update-function-code --function-name mylambda --zip-file fileb://function.zip
+      - echo "DONE!!"
 
 artifacts:
   files:
     - function.zip
-    - appspec.yml
