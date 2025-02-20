@@ -11,12 +11,12 @@ class Funcion:
     """
         Función a ejecutar en determinada path y con determinado método
     """
-    def __init__(func, path: str, httpMethod : str):
+    def __init__(self, func, path: str, httpMethod : str):
         self.httpMethod = httpMethod
         self.path = path
         self.func = func
 
-    def ejecutar(args : dict):
+    def ejecutar(self, args : dict):
         # Ejecuta la función deseada
         return self.func(**self.args)
 
@@ -26,7 +26,7 @@ class OrquestadorLambda:
     Orquesta que funciones ejecutar acorde con el método y el path
     """
 
-    def __init__():
+    def __init__(self):
         self.funciones : lst[Funcion] = []
         for tupla_funcion in FUNCIONES:
             # Agregamos todas las funciones que gestionará la lambda
@@ -34,13 +34,13 @@ class OrquestadorLambda:
                                 tupla_funcion[1],
                                 tupla_funcion[2])
 
-    def agregar_funcion(func, path : str, httpMethod: str = 'GET'):
+    def agregar_funcion(self, func, path : str, httpMethod: str = 'GET'):
         if (self._verificar_path(path, httpMethod)):
             self.funciones.append(Funcion(func, path, httpMethod))
         else:
             raise Exception(f'Hay una función con un path y método repetidos: ({path} {httpMethod})')
 
-    def _verificar_path(path, httpMethod):
+    def _verificar_path(self, path, httpMethod):
         """
         Verifica si el path y el método ya se habían usado
         """
@@ -50,7 +50,7 @@ class OrquestadorLambda:
         return True
 
     
-    def ejecutar_funcion(httpMethod : str, path : str, args : dict):
+    def ejecutar_funcion(self, httpMethod : str, path : str, args : dict):
         # Busca la función dado el path y el método
         for funcion in self.funciones:
             if funcion.httpMethod == httpMethod and funcion.path == path:
@@ -69,7 +69,7 @@ def lambda_handler(event, context):
     except Exception as e:
         return {
             'statusCode' : 500,
-            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda. {e}'})
+            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda: {e}'})
         }
 
     # Obtenemos el cuerpo de la petición
