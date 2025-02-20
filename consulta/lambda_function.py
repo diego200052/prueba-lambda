@@ -1,5 +1,5 @@
 import json
-import urllib.parse
+import urllib
 from vehiculos import obtener_vehiculos
 
 # Aquí se deben agregar las funciones deseadas como una tripleta.
@@ -52,7 +52,8 @@ class OrquestadorLambda:
 
     def _convertir_body_a_dict(self, http_method, body):
         if http_method == 'GET':
-            return urllib.parse.parse_qs(query_string)
+            return {}
+            #return urllib.parse.parse_qs(query_string)
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body):
@@ -102,10 +103,10 @@ def lambda_handler(event, context):
     except:
         body = {}
 
-    return {
-        'statusCode' : 200,
-        'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
-    }
+    # return {
+    #     'statusCode' : 200,
+    #     'body': str(path) + " --- " + str(http_method) + " --- " + str(body)
+    # }
 
     if str(path) != '' and str(http_method) != '':
         try:
