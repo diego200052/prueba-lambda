@@ -1,5 +1,4 @@
 import json
-import traceback
 from vehiculos import obtener_vehiculos
 
 # Aquí se deben agregar las funciones deseadas como una tripleta.
@@ -50,6 +49,7 @@ class OrquestadorLambda:
 
     
     def ejecutar_funcion(self, path : str, args : dict):
+        raise Exception('Entra ejecutar_funcion')
         # Busca la función dado el path y el método
         for funcion in self.funciones:
             if funcion.path == path:
@@ -70,7 +70,7 @@ def lambda_handler(event, context):
     except Exception as e:
         return {
             'statusCode' : 500,
-            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda: {traceback.format_exc()}'})
+            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda: {e}'})
         }
 
     #! Prueba, borrar después
@@ -81,7 +81,7 @@ def lambda_handler(event, context):
     try:
         path = event['path']
     except Exception as e:
-        path = e
+        path = ''
     try:
         args = event['args']
     except:
