@@ -1,4 +1,5 @@
 import json
+import traceback
 from vehiculos import obtener_vehiculos
 
 # Aquí se deben agregar las funciones deseadas como una tripleta.
@@ -69,7 +70,7 @@ def lambda_handler(event, context):
     except Exception as e:
         return {
             'statusCode' : 500,
-            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda: {e}'})
+            'body': json.dumps({'error':f'Error al inicializar el orquestador lambda: {traceback.format_exc()}'})
         }
 
     #! Prueba, borrar después
