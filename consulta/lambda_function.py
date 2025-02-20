@@ -80,7 +80,10 @@ def lambda_handler(event, context):
         }
 
     #! Prueba, borrar después
-    return event
+    return {
+        'statusCode' : 200,
+        'body': str(event)# + "-----" + str(context)
+    }
 
     try:
         path = event['path']
