@@ -63,7 +63,7 @@ def lambda_handler(event, context):
     Punto de llamada de las lambda.
     """
 
-    # Inicializa
+    # Inicializa orquestador de funciones
     try:
         orquestador_lambda = OrquestadorLambda()
     except Exception as e:
@@ -77,6 +77,7 @@ def lambda_handler(event, context):
     #     'statusCode' : 200,
     #     'body': json.dumps(str(event) + "-----" + str(context))
     # }
+
     try:
         path = event['path']
     except Exception as e:
@@ -98,5 +99,5 @@ def lambda_handler(event, context):
     # path == ''
     return {
         'statusCode': 200,
-        'body': json.dumps({'error':f'Path de la función vacío: {str(event)}'})
+        'body': json.dumps({'error':f'Path de la función vacío: ({path}) {str(event)}'})
     }
