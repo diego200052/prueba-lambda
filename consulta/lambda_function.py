@@ -17,7 +17,7 @@ class Funcion:
 
     def ejecutar(self, args : dict):
         # Ejecuta la función deseada
-        return self.func(**self.args)
+        return self.func(**args)
 
 class OrquestadorLambda:
 
@@ -49,7 +49,6 @@ class OrquestadorLambda:
 
     
     def ejecutar_funcion(self, path : str, args : dict):
-        raise Exception('Entra ejecutar_funcion')
         # Busca la función dado el path y el método
         for funcion in self.funciones:
             if funcion.path == path:
