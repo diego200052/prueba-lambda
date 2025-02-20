@@ -6,9 +6,9 @@ phases:
   build:
     commands:
       - echo "Zipping the Lambda function and AppSpec file"
-      - zip -r function.zip lambda_function.py appspect.yml
+      - zip -r function.zip lambda_function.py appspec.yml
 
 artifacts:
   files:
     - function.zip
-    - appspect.yml
+    - appspec.yml
