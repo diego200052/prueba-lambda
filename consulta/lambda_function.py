@@ -52,7 +52,7 @@ class OrquestadorLambda:
 
     def _convertir_body_a_dict(self, http_method, body):
         if http_method == 'GET':
-            return urllib.parse.parse_qs(body)
+            return {key: value[0] for key, value in urllib.parse.parse_qs(body).items()}
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body):
