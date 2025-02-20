@@ -37,6 +37,18 @@ class OrquestadorLambda:
     def agregar_funcion(func, path : str, httpMethod: str = 'GET'):
         if (_verificar_path(path, httpMethod)):
             self.funciones.append(Funcion(func, path, httpMethod))
+        else:
+            raise Exception(f'Hay una función con un path y método repetidos: ({path} {httpMethod})')
+
+    def _verificar_path(path, httpMethod):
+        """
+        Verifica si el path y el método ya se habían usado
+        """
+        for funcion in self.funciones:
+            if funcion.path == path and funcion.httpMethod == httpMethod:
+                return False
+        return True
+
     
     def ejecutar_funcion(httpMethod : str, path : str, args : dict):
         # Busca la función dado el path y el método
