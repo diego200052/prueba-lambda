@@ -1,5 +1,5 @@
 import json
-import urllib
+import urllib.parse
 from vehiculos import obtener_vehiculos
 
 # Aquí se deben agregar las funciones deseadas como una tripleta.
@@ -52,8 +52,7 @@ class OrquestadorLambda:
 
     def _convertir_body_a_dict(self, http_method, body):
         if http_method == 'GET':
-            return {}
-            #return urllib.parse.parse_qs(query_string)
+            return urllib.parse.parse_qs(query_string)
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body):
@@ -66,7 +65,7 @@ class OrquestadorLambda:
         raise Exception('El path de la función no existe.')
 
 
-def json_response(httpStatusCode : int = 500, body : dict):
+def json_response(httpStatusCode : int = 500, body : dict = {}):
     return {
         # "isBase64Encoded": isBase64Encoded,
         "statusCode": httpStatusCode,
