@@ -61,7 +61,7 @@ class OrquestadorLambda:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
                 args = self._convertir_body_a_dict(http_method, body)
-                #return funcion.ejecutar(args)
+                return funcion.ejecutar(args)
         return {'args':args}
         #return {path}
 
