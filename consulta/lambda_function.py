@@ -69,7 +69,7 @@ def lambda_handler(event, context):
     except Exception as e:
         return {
             'statusCode' : 500,
-            'result': json.dumps({'error':f'Error al inicializar el orquestador lambda: {e}'})
+            'result': {'error':f'Error al inicializar el orquestador lambda: {e}'}
         }
 
     #! Prueba, borrar después
@@ -91,17 +91,17 @@ def lambda_handler(event, context):
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, args)
-            return json.dumps({
+            return {
                 'statusCode': 200,
                 'result': resultado
-            })
-        except Exception as e:
-            return {
-                'statusCode': 500,
-                'result': json.dumps({'error':f'Error {str(event)} ( path: {str(path)}. args: {str(args)}. {e} ).'})
             }
+        except Exception as e:
+            return json.dumps({
+                'statusCode': 500,
+                'result': {'error':f'Error {str(event)} ( path: {str(path)}. args: {str(args)}. {e} ).'}
+            })
     # path == ''
-    return {
+    return json.dumps({
         'statusCode': 500,
-        'result': json.dumps({'error':f'Path de la función vacío: ({path}) {str(event)}'})
-    }
+        'result': {'error':f'Path de la función vacío: ({path}) {str(event)}'}
+    })
