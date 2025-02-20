@@ -62,7 +62,7 @@ class OrquestadorLambda:
                 # Ejecuta la función
                 args = self._convertir_body_a_dict(http_method, body)
                 #return funcion.ejecutar(args)
-        return {}
+        return {'args':args}
         #return {path}
 
         #raise Exception('El path de la función no existe.')
