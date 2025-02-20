@@ -91,10 +91,10 @@ def lambda_handler(event, context):
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, args)
-            return {
+            return json.dumps({
                 'statusCode': 200,
-                'result': json.dumps(resultado)
-            }
+                'result': resultado
+            })
         except Exception as e:
             return {
                 'statusCode': 500,
