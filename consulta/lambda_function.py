@@ -52,7 +52,7 @@ class OrquestadorLambda:
 
     def _convertir_body_a_dict(self, http_method, body):
         if http_method == 'GET':
-            return urllib.parse.parse_qs(query_string)
+            return urllib.parse.parse_qs(body)
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body):
@@ -60,7 +60,7 @@ class OrquestadorLambda:
         for funcion in self.funciones:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
-                return funcion.ejecutar(self._convertir_body_a_dict(body))
+                return funcion.ejecutar(self._convertir_body_a_dict(http_method, body))
 
         raise Exception('El path de la función no existe.')
 
@@ -102,16 +102,17 @@ def lambda_handler(event, context):
     except:
         body = {}
 
+    # return {
+    #     'statusCode' : 200,
+    #     'body': str(path) + " --2- " + str(http_method) + " --- " + str(body)
+    # }
+
     if str(path) != '' and str(http_method) != '':
         try:
             # Ejecutamos la función deseada
             resultado = orquestador_lambda.ejecutar_funcion(path, body)
-            #return json_response(httpStatusCode=200, body=resultado)
+            return json_response(httpStatusCode=200, body=resultado)
         except Exception as e:
             return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}. {e} ).'})
     # path == ''
-    #return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
-    return {
-        'statusCode' : 200,
-        'body': str(path) + " --2- " + str(http_method) + " --- " + str(body)
-    }
+    return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
