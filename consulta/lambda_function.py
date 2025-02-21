@@ -80,7 +80,7 @@ class OrquestadorLambda:
                 try:
                     return funcion.ejecutar(args)
                 except Exception as e:
-                    if 'unexpected keyword argument' in e:
+                    if 'unexpected keyword argument' in str(e):
                         return funcion.get_params()
                     else:
                         raise
