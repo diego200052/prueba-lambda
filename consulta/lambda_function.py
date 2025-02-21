@@ -82,12 +82,12 @@ class OrquestadorLambda:
             return {key: value[0] for key, value in urllib.parse.parse_qs(body).items()}
         return {}
     
-    def ejecutar_funcion(self, path : str, http_method : str, body):
+    def ejecutar_funcion(self, path : str, http_method : str, body, content_type : str):
         # Busca la función dado el path y el método
         for funcion in self.funciones:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
-                args = self._convertir_body_a_dict(http_method, body)
+                args = self._convertir_body_a_dict(http_method, body, content_type)
                 try:
                     return funcion.ejecutar(args)
                 except Exception as e:
@@ -133,12 +133,14 @@ def lambda_handler(event, context):
         http_method = ''
     try:
         body = event['body']
+        content_type = event['Content-Type']
     except:
         body = {}
+        content_type = ''
 
     return {
         'statusCode' : 200,
-        'body': str(path) + " --30- " + str(http_method) + " --- " + str(body) + str(event) #+ str(resultado)
+        'body': str(path) + " --30- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(event) #+ str(resultado)
     }
 
     if str(path) != '' and str(http_method) != '':
