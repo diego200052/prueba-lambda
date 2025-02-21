@@ -1,4 +1,5 @@
 import json
+import traceback
 import inspect
 import urllib.parse
 from vehiculos import obtener_vehiculos
@@ -135,6 +136,6 @@ def lambda_handler(event, context):
             resultado = orquestador_lambda.ejecutar_funcion(path, http_method, body)
             return json_response(httpStatusCode=200, body=resultado)
         except Exception as e:
-            return json_response(httpStatusCode=500, body={'error': e, 'body': body, 'path': path})
+            return json_response(httpStatusCode=500, body={'error': e, 'body': body, 'path': path, 'traceback': traceback.format_exc()})
     # path == ''
     return json_response(httpStatusCode=500, body={'error':'Path de la función vacío', 'path': path, 'http_method': http_method})
