@@ -94,16 +94,21 @@ def lambda_handler(event, context):
     #     'body': str(event)# + "-----" + str(context)
     # }
 
-    try:
-        path = event['path']
-        http_method = event['httpMethod']
-    except Exception as e:
-        path = ''
-        http_method = ''
+    # try:
+    #     path = event['path']
+    #     http_method = event['httpMethod']
+    # except Exception as e:
+    path = ''
+    http_method = ''
     try:
         body = event['body']
     except:
         body = {}
+
+    # return {
+    #     'statusCode' : 200,
+    #     'body': str(path) + " --30- " + str(http_method) + " --- " + str(body)# + str(resultado)
+    # }
 
     if str(path) != '' and str(http_method) != '':
         try:
@@ -115,7 +120,3 @@ def lambda_handler(event, context):
             return json_response(httpStatusCode=500, body={'error': e, 'body': body, 'path': path})
     # path == ''
     return json_response(httpStatusCode=500, body={'error':'Path de la función vacío', 'path': path, 'http_method': http_method})
-    # return {
-    #     'statusCode' : 200,
-    #     'body': str(path) + " --30- " + str(http_method) + " --- " + str(body)# + str(resultado)
-    # }
