@@ -112,9 +112,9 @@ def lambda_handler(event, context):
             return json_response(httpStatusCode=200, body=resultado)
         except Exception as e:
             resultado = "excepcion"
-            return json_response(httpStatusCode=500, body={'error':e, 'event': event, 'path': path, 'body': body})
+            return json_response(httpStatusCode=500, body={'error': e, 'path': path, 'body': body})
     # path == ''
-    return json_response(httpStatusCode=500, body={'error':'Path de la función vacío', 'path': path, 'http_method': http_method, 'event': event})
+    return json_response(httpStatusCode=500, body={'error':'Path de la función vacío', 'path': path, 'http_method': http_method})
     # return {
     #     'statusCode' : 200,
     #     'body': str(path) + " --25- " + str(http_method) + " --- " + str(body) + str(resultado)
