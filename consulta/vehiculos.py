@@ -1,2 +1,2 @@
 def obtener_vehiculos(rutas=['T05']):
-    return [45293]
+    return { 'vehicles': [45293] }
