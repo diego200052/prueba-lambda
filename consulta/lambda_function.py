@@ -74,7 +74,7 @@ def json_response(httpStatusCode : int = 500, body : dict = {}):
         "statusCode": httpStatusCode,
         # "headers": { "headerName": "headerValue", ... },
         # "multiValueHeaders": { "headerName": ["headerValue", "headerValue2", ...], ... },
-        "body": json.dumps(body, default=str)
+        "body": json.loads(json.dumps(body, default=str))
     }
 
 def lambda_handler(event, context):
@@ -112,7 +112,7 @@ def lambda_handler(event, context):
             #return json_response(httpStatusCode=200, body=resultado)
         #except Exception as e:
             #resultado = "excepcion"
-        return json_response(httpStatusCode=500, body={'error':f'Error {str(event)} ( path: {str(path)}. args: {str(body)}.).'})
+        return json_response(httpStatusCode=500, body={'error':e, 'event': event, 'path': path, 'body': body})
     # path == ''
     return json_response(httpStatusCode=500, body={'error':f'Path de la función vacío: ({path} {http_method}) {str(event)}'})
     # return {
