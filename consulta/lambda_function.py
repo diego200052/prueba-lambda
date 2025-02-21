@@ -1,4 +1,5 @@
 import json
+import inspect
 import urllib.parse
 from vehiculos import obtener_vehiculos
 
@@ -20,6 +21,20 @@ class Funcion:
     def ejecutar(self, args : dict):
         # Ejecuta la función deseada
         return self.func(**args)
+    
+    def get_params(self):
+        signature = inspect.signature(self.func)
+        params = {
+            'error' : 'No se introdujeron los parámetros necesarios para devolver una respuesta.',
+            'params': [
+                {
+                    'name': param.name,
+                    'type': 'Obligatorio' if param.default == inspect.Parameter.empty else 'Opcional'
+                }
+                for param in signature.parameters.values()
+            ]
+        }
+        return params
 
 class OrquestadorLambda:
 
@@ -61,7 +76,13 @@ class OrquestadorLambda:
             if funcion.path == path and funcion.http_method == http_method:
                 # Ejecuta la función
                 args = self._convertir_body_a_dict(http_method, body)
-                return funcion.ejecutar(args)
+                try:
+                    return funcion.ejecutar(args)
+                except Exception as e:
+                    if 'unexpected keyword argument' in e:
+                        return funcion.get_params()
+                    else:
+                        raise
 
         raise Exception('El path de la función no existe o el método http es incorrecto.')
 
@@ -114,7 +135,6 @@ def lambda_handler(event, context):
             resultado = orquestador_lambda.ejecutar_funcion(path, http_method, body)
             return json_response(httpStatusCode=200, body=resultado)
         except Exception as e:
-            resultado = "excepcion"
             return json_response(httpStatusCode=500, body={'error': e, 'body': body, 'path': path})
     # path == ''
     return json_response(httpStatusCode=500, body={'error':'Path de la función vacío', 'path': path, 'http_method': http_method})
