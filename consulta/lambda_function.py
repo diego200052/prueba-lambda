@@ -24,7 +24,7 @@ class Funcion:
         signature = inspect.signature(self.func)
 
         # Obtener los nombres de los parámetros necesarios (incluye parámetros posicionales y con valor por defecto)
-        required_params = {param.name for param in signature.parameters.values() if param.default == inspect.Parameter.empty}
+        required_params = {param.name for param in signature.parameters.values()}
 
         # Filtrar el diccionario de argumentos, dejando solo los necesarios
         filtered_args = {key: value for key, value in args.items() if key in required_params}
