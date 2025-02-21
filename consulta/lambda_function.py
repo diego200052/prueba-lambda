@@ -20,8 +20,17 @@ class Funcion:
         self.func = func
 
     def ejecutar(self, args : dict):
+        # Filtramos los args que la función necesita
+        signature = inspect.signature(self.func)
+
+        # Obtener los nombres de los parámetros necesarios (incluye parámetros posicionales y con valor por defecto)
+        required_params = {param.name for param in signature.parameters.values() if param.default == inspect.Parameter.empty}
+
+        # Filtrar el diccionario de argumentos, dejando solo los necesarios
+        filtered_args = {key: value for key, value in args.items() if key in required_params}
+
         # Ejecuta la función deseada
-        return self.func(**args)
+        return self.func(**filtered_args)
     
     def get_params(self):
         signature = inspect.signature(self.func)
