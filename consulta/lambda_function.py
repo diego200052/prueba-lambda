@@ -133,7 +133,7 @@ def lambda_handler(event, context):
         http_method = ''
     try:
         body = event['queryStringParameters']
-        body = json.dumps(body)
+        body = json.loads(body)
     except:
         body = {}
     try:
@@ -148,7 +148,7 @@ def lambda_handler(event, context):
 
     return {
         'statusCode' : 200,
-        'body': str(path) + " --30- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(orquestador_lambda._convertir_body_a_dict(http_method, body)) + str(event) #+ str(resultado)
+        'body': str(path) + " --31- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(orquestador_lambda._convertir_body_a_dict(http_method, body)) + str(event) #+ str(resultado)
     }
 
     if str(path) != '' and str(http_method) != '':
