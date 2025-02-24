@@ -80,6 +80,7 @@ class OrquestadorLambda:
             return body
         if (type(body) == str and http_method == 'GET'):
             newbody = str({key: value[0] for key, value in urllib.parse.parse_qs(body).items()})
+            newbody = newbody.replace("'", '"')
             # if len(newbody) == 0:
             newbody = json.loads(newbody)
             return newbody
