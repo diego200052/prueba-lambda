@@ -138,7 +138,7 @@ def lambda_handler(event, context):
     try:
         content_type = event['headers']['Content-Type']
     except:
-        return json_response(httpStatusCode=500, body={'error': 'Please add Content-Type header.'})
+        content_type = None
 
     return {
         'statusCode' : 200,
