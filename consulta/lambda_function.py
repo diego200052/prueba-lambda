@@ -133,14 +133,14 @@ def lambda_handler(event, context):
         http_method = ''
     try:
         body = event['queryStringParameters']
-        if json.loads(body) != None:
-            body = json.loads(body)
-        elif json.dumps(body) != None:
-            body = json.dumps(body)
+        # if json.loads(body) != None:
+        #     body = json.loads(body)
+        # elif json.dumps(body) != None:
+        #     body = json.dumps(body)
     except:
         body = {}
     try:
-        if body == {}:
+        if type(body) == dict and len(body) == 0:
             body = event['body']
     except:
         body = {}
