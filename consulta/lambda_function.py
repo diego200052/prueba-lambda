@@ -131,19 +131,15 @@ def lambda_handler(event, context):
     except Exception as e:
         path = ''
         http_method = ''
-    try:
+
+    if 'queryStringParameters' in event:
         body = event['queryStringParameters']
-        # if json.loads(body) != None:
-        #     body = json.loads(body)
-        # elif json.dumps(body) != None:
-        #     body = json.dumps(body)
-    except:
-        body = {}
-    try:
-        if type(body) == dict and len(body) == 0:
+    else:
+        try:
             body = event['body']
-    except:
-        body = {}
+        except:
+            body = {}
+
     try:
         content_type = event['headers']['Content-Type']
     except:
@@ -151,7 +147,7 @@ def lambda_handler(event, context):
 
     return {
         'statusCode' : 200,
-        'body': str(path) + " --31- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(type(body).__name__) + str(orquestador_lambda._convertir_body_a_dict(http_method, body)) + str(event) #+ str(resultado)
+        'body': str(path) + " --31- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + " --- " + str(type(body).__name__) + " --- " + str(orquestador_lambda._convertir_body_a_dict(http_method, body)) + " --- " + str(event) #+ str(resultado)
     }
 
     if str(path) != '' and str(http_method) != '':
