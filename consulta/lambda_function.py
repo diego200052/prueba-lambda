@@ -142,7 +142,7 @@ def lambda_handler(event, context):
 
     return {
         'statusCode' : 200,
-        'body': str(path) + " --30- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(orquestador_lambda._convertir_body_a_dict(body)) + str(event) #+ str(resultado)
+        'body': str(path) + " --30- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(orquestador_lambda._convertir_body_a_dict(http_method, body)) + str(event) #+ str(resultado)
     }
 
     if str(path) != '' and str(http_method) != '':
