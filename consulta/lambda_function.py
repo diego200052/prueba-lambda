@@ -132,7 +132,7 @@ def lambda_handler(event, context):
         path = ''
         http_method = ''
 
-    if 'queryStringParameters' in event:
+    if 'queryStringParameters' in event and event['queryStringParameters'] != None:
         body = event['queryStringParameters']
     else:
         try:
