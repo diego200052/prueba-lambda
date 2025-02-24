@@ -78,7 +78,7 @@ class OrquestadorLambda:
     def _convertir_body_a_dict(self, http_method, body):
         if (type(body) == dict):
             return body
-        if http_method == 'GET':
+        if (type(body) == str and http_method == 'GET'):
             return {key: value[0] for key, value in urllib.parse.parse_qs(body).items()}
         return {}
     
@@ -142,7 +142,7 @@ def lambda_handler(event, context):
 
     return {
         'statusCode' : 200,
-        'body': str(path) + " --30- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(event) #+ str(resultado)
+        'body': str(path) + " --30- " + str(http_method) + " --- " + str(content_type) + " --- " + str(body) + str(orquestador_lambda._convertir_body_a_dict(body)) + str(event) #+ str(resultado)
     }
 
     if str(path) != '' and str(http_method) != '':
