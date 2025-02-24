@@ -79,7 +79,10 @@ class OrquestadorLambda:
         if (type(body) == dict):
             return body
         if (type(body) == str and http_method == 'GET'):
-            return {key: value[0] for key, value in urllib.parse.parse_qs(body).items()}
+            newbody = {key: value[0] for key, value in urllib.parse.parse_qs(body).items()}
+            if len(newbody) == 0:
+                newbody = json.loads(body)
+            return newbody
         return {}
     
     def ejecutar_funcion(self, path : str, http_method : str, body, content_type : str):
