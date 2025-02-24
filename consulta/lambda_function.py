@@ -134,9 +134,10 @@ def lambda_handler(event, context):
     try:
         body = event['queryStringParameters']
     except:
-        body = ''
+        body = {}
     try:
-        body = event['body']
+        if body == {}:
+            body = event['body']
     except:
         body = {}
     try:
