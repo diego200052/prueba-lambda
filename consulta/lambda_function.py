@@ -145,7 +145,7 @@ def lambda_handler(event, context):
 
     try:
         content_type = event['headers']['Content-Type']
-        if r'application/json' in == content_type:
+        if r'application/json' in content_type:
             body = json.loads(json)
     except:
         content_type = None
