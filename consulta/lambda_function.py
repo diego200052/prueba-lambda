@@ -132,6 +132,10 @@ def lambda_handler(event, context):
         path = ''
         http_method = ''
     try:
+        body = event['queryStringParameters']
+    except:
+        body = ''
+    try:
         body = event['body']
     except:
         body = {}
